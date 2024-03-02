@@ -1,0 +1,28 @@
+# This file is used to create an Ingress resource in the Kubernetes cluster.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gatewaygenius-demo-ingress
+  namespace: default
+spec:
+  rules:
+  - host: rocketscore.com #Client app domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gatewaygenius-demo-service
+            port:
+              number: 80
+  # - host: app2.example.com
+  #   http:
+  #     paths:
+  #     - path: /
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: nextjs-app2-service
+  #           port:
+  #             number: 80

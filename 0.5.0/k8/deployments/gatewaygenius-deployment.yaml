@@ -1,3 +1,20 @@
+# This creates a ClusterIP service that exposes the deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewaygenius-demo-service
+  namespace: default
+spec:
+  selector:
+    app: gatewaygenius-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+
+---
+
+# This creates a Deployment that runs the container
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,7 +32,7 @@ spec:
     spec:
       containers:
         - name: gatewaygenius-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/gatewaygenius:0.4.0 #extraboost/gatewaygenius:0.3.0 # Image location #gcr.io/deployment-example-378120/gatewaygenius:0.3.0
+          image: gcr.io/deployment-example-378120/gatewaygenius:0.5.0 # Image name
           env:
           - name: SECRET_ID # Name of the environment variable
             valueFrom:
@@ -36,16 +53,4 @@ spec:
             limits: # The maximum amount of resources the container can use
               cpu: "500m"  
               memory: "1Gi" 
-       
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: gatewaygenius-demo-service # Name of your service
-spec:
-  type: LoadBalancer # Type of service
-  ports:
-  - port: 80 # Port your service listens on
-    targetPort: 3000 # Port your application listens on
-  selector:
-    app: gatewaygenius-demo
+    
