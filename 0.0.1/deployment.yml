@@ -1,0 +1,35 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mykubernetesapp-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30008
+  selector:
+    app: mykubernetesapp
+
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mykubernetesapp-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mykubernetesapp
+  template:
+    metadata:
+      labels:
+        app: mykubernetesapp
+    spec:
+      containers:
+      - name: firstkubecontainer
+        image: extraboost/mykubernetesapp
+        ports:
+        - containerPort: 8080

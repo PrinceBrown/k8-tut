@@ -1,0 +1,34 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-k8s-app-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080  # Updated to match the container's port
+  selector:
+    app: my-k8s-app
+
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-k8s-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-k8s-app
+  template:
+    metadata:
+      labels:
+        app: my-k8s-app
+    spec:
+      containers:
+      - name: k8demo-nodejs
+        image: gcr.io/deployment-example-378120/my-node-app:latest  # Updated image reference
+        ports:
+        - containerPort: 8080  # Updated to the correct application port

@@ -1,0 +1,30 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: k8-new-1-cluster-node-App
+  region: ca-central-1
+
+vpc:
+  id: vpc-040a3c6e32da7f36e
+  cidr: "192.168.0.0/16"
+  subnets:
+    public:
+      k8-node-app-PublicSubnet01:
+        id: subnet-06293e776b6027820
+      k8-node-app-PublicSubnet02:
+        id: subnet-0e0484fe2ca97798d
+    private:
+      k8-node-app-PrivateSubnet01:
+        id: subnet-06be1f848d1016262
+      k8-node-app-PrivateSubnet02:
+        id: subnet-04c5859e7ec2c59ae
+
+nodeGroups:
+  - name: EKS-public-workers
+    instanceType: t2.medium
+    desiredCapacity: 2
+  - name: EKS-private-workers
+    instanceType: t2.medium
+    desiredCapacity: 1
+    privateNetworking: true

@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-app
+  template:
+    metadata:
+      labels:
+        app: server-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: extraboost/second-node-app:latest # Your Docker image URL
+          ports:
+            - containerPort: 8080 # Port your application listens on
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+            requests:
+              cpu: "250m"
+              memory: "500Mi"
+#           
+
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: updated-change  # Renamed Deployment name
+#   labels:
+#     app: updated-change  # Updated labels
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: updated-change  # Updated selector
+#   template:
+#     metadata:
+#       labels:
+#         app: updated-change  # Updated labels
+#     spec:
+#       containers:
+#       - name: updated-change  # Updated container name
+#         image: tutum/hello-world  # Update this with your image name and tag
+#         imagePullPolicy: Always
+#         resources:
+#           limits:
+#             cpu: "500m"
+#             ephemeral-storage: "1Gi"
+#             memory: "2Gi"
+#           requests:
+#             cpu: "500m"
+#             ephemeral-storage: "1Gi"
+#             memory: "2Gi"
+#         securityContext:
+#           capabilities:
+#             drop:
+#             - NET_RAW
+#         terminationMessagePath: /dev/termination-log
+#         terminationMessagePolicy: File
+#       dnsPolicy: ClusterFirst
+#       restartPolicy: Always
+#       schedulerName: default-scheduler
+#       securityContext:
+#         seccompProfile:
+#           type: RuntimeDefault
+#       terminationGracePeriodSeconds: 30
+#       tolerations:
+#       - effect: NoSchedule
+#         key: kubernetes.io/arch
+#         operator: Equal
+#         value: amd64
+
+#   # Additional annotations and labels from the provided configuration
+#   # annotations:
+#   #   autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"updated-change"}]},"output":{"containers":[{"limits":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"updated-change"}]},"modified":true}'
+#   #   autopilot.gke.io/warden-version: "2.7.52"
+#   #   deployment.kubernetes.io/revision: "1"
+
+#   # Additional status from the provided configuration
+#   # status:
+#   #   availableReplicas: 1
+#   #   conditions:
+#   #   - lastTransitionTime: "2024-03-01T03:46:31Z"
+#   #     lastUpdateTime: "2024-03-01T03:46:31Z"
+#   #     message: Deployment has minimum availability.
+#   #     reason: MinimumReplicasAvailable
+#   #     status: "True"
+#   #     type: Available
+#   #   - lastTransitionTime: "2024-03-01T03:46:23Z"
+#   #     lastUpdateTime: "2024-03-01T03:46:31Z"
+#   #     message: ReplicaSet "updated-change-6f56f68fd8" has successfully progressed.
+#   #     reason: NewReplicaSetAvailable
+#   #     status: "True"
+#   #     type: Progressing
+#   #   observedGeneration: 2
+#   #   readyReplicas: 1
+#   #   replicas: 1
+#   #   updatedReplicas: 1
