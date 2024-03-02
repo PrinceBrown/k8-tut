@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gatewaygenius-demo-ingress
+  namespace: default
+spec:
+  rules:
+  - host: rocketscore.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gatewaygenius-demo-service
+            port:
+              number: 80
+  # tls:
+  # - hosts:
+    # - rocketscore.com
+    # secretName: tls-secret
+    # managedCertificate:
+      # managedCertificateName: your-managed-certificate-name
