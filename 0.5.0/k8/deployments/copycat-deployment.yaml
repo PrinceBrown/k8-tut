@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: copycat-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/copycat:0.1.1 # Image name
+          image: gcr.io/deployment-example-378120/copycat:0.1.2 # Image name
           ports:
             - containerPort: 5500 # Port your application listens on
           resources: # Resource limits and requests

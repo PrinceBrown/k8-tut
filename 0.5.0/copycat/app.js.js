@@ -5,7 +5,7 @@ const app = express();
 
 app.get('/', async (req, res) => {
   try {
-    const response = await axios.get("http://gatewaygenius-demo-service.default.svc.cluster.local");
+    const response = await axios.get("http://gatewaygenius-demo-service:80");
     res.json(response.data);
   } catch (error) {
     console.error(error);
