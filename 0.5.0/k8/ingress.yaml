@@ -16,7 +16,7 @@ spec:
             name: gatewaygenius-demo-service
             port:
               number: 80
-  - host: 2.rocketscore.com #Client app domain
+  - host: copy.rocketscore.com #Client app domain
     http:
       paths:
       - path: /
