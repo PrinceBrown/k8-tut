@@ -1,0 +1,45 @@
+# This creates a ClusterIP service that exposes the deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: copycat-demo-service
+  namespace: default
+spec:
+  selector:
+    app: copycat-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5500
+
+---
+
+# This creates a Deployment that runs the container
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: copycat-demo-deployment # Name of your deployment
+  namespace: default
+spec:
+  replicas: 1 # Number of pods you want to run
+  selector:
+    matchLabels:
+      app: copycat-demo # Label for the pod
+  template:
+    metadata:
+      labels:
+        app: copycat-demo # Label for the pod
+    spec:
+      containers:
+        - name: copycat-demo-container # Name of your container
+          image: gcr.io/deployment-example-378120/copycat:0.1.0 # Image name
+          ports:
+            - containerPort: 5500 # Port your application listens on
+          resources: # Resource limits and requests
+            requests: # The minimum amount of resources the container needs
+              cpu: "100m" # "250m" 
+              memory: "50Mi" # "500Mi" 
+            limits: # The maximum amount of resources the container can use
+              cpu: "200m" # "500m"  
+              memory: "100Mi" #"1Gi" 
+    
