@@ -1,0 +1,53 @@
+# This creates a ClusterIP service that exposes the deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: pro-demo-service
+  namespace: default
+spec:
+  selector:
+    app: pro-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+
+---
+
+# This creates a Deployment that runs the container
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pro-demo-deployment # Name of your deployment
+  namespace: default
+spec:
+  replicas: 1 # Number of pods you want to run
+  selector:
+    matchLabels:
+      app: pro-demo # Label for the pod
+  template:
+    metadata:
+      labels:
+        app: pro-demo # Label for the pod
+    spec:
+      containers:
+        - name: pro-demo-container # Name of your container
+          image: gcr.io/deployment-example-378120/pro:0.3.2 # Image name
+          env:
+          - name: NODE_ENV
+            value: "production"
+          - name: BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                name: k8-demo-config
+                key: GATEWAY_GENIUS_URL
+          ports:
+            - containerPort: 3000 # Port your application listens on
+          resources: # Resource limits and requests
+            requests: # The minimum amount of resources the container needs
+              cpu: "100m" # "250m" 
+              memory: "50Mi" # "500Mi" 
+            limits: # The maximum amount of resources the container can use
+              cpu: "200m" # "500m"  
+              memory: "100Mi" #"1Gi" 
+    

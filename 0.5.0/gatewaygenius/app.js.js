@@ -17,7 +17,11 @@ app.get('/server-status', (req, res) => {
 
 
 app.get('/', (req, res) => res.status(200).json({
+    serverName: 'RocketScore NodeJs k8-Demo (GG)',
+    status: 'Running',
+    environment: process.env.NODE_ENV || 'local',
     response: 'Good response from server!', 
+    version: '0.5.1',
     environmentSecretID: process.env.SECRET_ID ?? 'No secret ID found',
     environmentSecretMessage: process.env.SECRET_MESSAGE ?? 'No secret ID found',
     status: 200, 

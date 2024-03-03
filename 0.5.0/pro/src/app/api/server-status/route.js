@@ -1,23 +1,21 @@
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-
-
-  console.log("Hitting the backend", 'http://localhost:5400/server-status');
-
   // Make a request to the server
   const getServerStatus = async () => {
-    let url =
-      process.env.NODE_ENV == "development"
-        ? "http://localhost:5400"
-        : '';
+    // let url =
+    //   process.env.NODE_ENV == "production" 
+    //     ? "http://gatewaygenius-demo-service:80" //process.env.BACKEND_URL
+    //     : "http://localhost:5400";
+
+    let url = "http://gatewaygenius-demo-service.default.svc.cluster.local";
+
     try {
-      const response = await fetch(url + "/server-status");
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-
-      // console.log (response)
-
-      console.log("Received data: ",data);
 
       return NextResponse.json({
         serverName: data.serverName,
@@ -25,11 +23,11 @@ export async function GET(req) {
         env: data.environment,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return NextResponse.json({
         serverName: "Couldn't retrieve server status",
         status: "Error",
-        env: 'local',
+        error: error,
       });
     }
   };

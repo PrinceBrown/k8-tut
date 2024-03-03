@@ -10,7 +10,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 3000
+    targetPort: 5400
 
 ---
 
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: gatewaygenius-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/gatewaygenius:0.5.0 # Image name
+          image: gcr.io/deployment-example-378120/gatewaygenius:0.5.2 # Image name
           env:
           - name: SECRET_ID # Name of the environment variable
             valueFrom:
@@ -44,13 +44,15 @@ spec:
               secretKeyRef:
                 name: gatewaygenius-demo-secrets
                 key: secret_message
+          - name: NODE_ENV
+            value: "production"  # or whatever environment you want
           ports:
-            - containerPort: 3000 # Port your application listens on
+            - containerPort: 5400 # Port your application listens on
           resources: # Resource limits and requests
             requests: # The minimum amount of resources the container needs
-              cpu: "250m" 
-              memory: "500Mi" 
+              cpu: "100m" # "250m" 
+              memory: "50Mi" # "500Mi" 
             limits: # The maximum amount of resources the container can use
-              cpu: "500m"  
-              memory: "1Gi" 
+              cpu: "200m" # "500m"  
+              memory: "100Mi" #"1Gi" 
     

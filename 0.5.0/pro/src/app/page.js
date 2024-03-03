@@ -18,7 +18,7 @@ export default function Home() {
     setIsError(false);
     setServerStatusData(null);
     try {
-      const response = await fetch('/api/server-status',{ cache: 'no-store' });
+      const response = await fetch('/api/server-status', { cache: 'no-store' });
       const data = await response.json();
       console.log(data);
       setServerStatusData(data);
@@ -80,9 +80,13 @@ export default function Home() {
 
       <div className="max-w-md w-full p-6 bg-white rounded-xl shadow-lg min-w-80">
 
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Server Response
-        </h2>
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Server Response
+          </h2>
+          <p className="text-xs font-thin text-gray-900">{process.env.NODE_ENV ?? 'No environment detected'}</p>
+          <p className="text-xs font-thin text-gray-900">Backend Service URL: {process.env.BACKEND_URL ?? 'No backend service'}</p>
+        </div>
 
         <div className="flex justify-between items-center mb-2">
           <div>
