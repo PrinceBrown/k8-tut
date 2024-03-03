@@ -10,7 +10,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 3000
+    targetPort: 3001
 
 ---
 
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: pro-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/pro:0.3.3 # Image name
+          image: gcr.io/deployment-example-378120/pro:0.3.4 # Image name
           env:
           - name: NODE_ENV
             value: "production"
@@ -42,7 +42,7 @@ spec:
                 name: k8-demo-config
                 key: GATEWAY_GENIUS_URL
           ports:
-            - containerPort: 3000 # Port your application listens on
+            - containerPort: 3001 # Port your application listens on
           resources: # Resource limits and requests
             requests: # The minimum amount of resources the container needs
               cpu: "100m" # "250m" 

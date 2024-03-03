@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: copycat-demo-service
-  namespace: default
+  # namespace: default
 spec:
   selector:
     app: copycat-demo
@@ -19,7 +19,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: copycat-demo-deployment # Name of your deployment
-  namespace: default
+  # namespace: default
 spec:
   replicas: 1 # Number of pods you want to run
   selector:

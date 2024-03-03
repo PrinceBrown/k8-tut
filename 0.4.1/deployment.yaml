@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewaygenius-demo-deployment # Name of your deployment
+  # namespace: default
+spec:
+  replicas: 1 # Number of pods you want to run
+  selector:
+    matchLabels:
+      app: gatewaygenius-demo # Label for the pod
+  template:
+    metadata:
+      labels:
+        app: gatewaygenius-demo # Label for the pod
+    spec:
+      containers:
+        - name: gatewaygenius-demo-container # Name of your container
+          image: gcr.io/deployment-example-378120/gatewaygenius:0.4.0 #extraboost/gatewaygenius:0.3.0 # Image location #gcr.io/deployment-example-378120/gatewaygenius:0.3.0
+          env:
+          - name: SECRET_ID # Name of the environment variable
+            valueFrom:
+              secretKeyRef:
+                name: gatewaygenius-demo-secrets # Name of the Secret object
+                key: secret_id # Key in the secret
+          - name: SECRET_MESSAGE 
+            valueFrom:
+              secretKeyRef:
+                name: gatewaygenius-demo-secrets
+                key: secret_message
+          ports:
+            - containerPort: 3000 # Port your application listens on
+          resources: # Resource limits and requests
+            requests: # The minimum amount of resources the container needs
+              cpu: "250m" 
+              memory: "500Mi" 
+            limits: # The maximum amount of resources the container can use
+              cpu: "500m"  
+              memory: "1Gi" 
+       
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewaygenius-demo-service
+  # namespace: default
+spec:
+  selector:
+    app: gatewaygenius-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
