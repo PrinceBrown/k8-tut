@@ -8,7 +8,7 @@ export async function GET(req) {
     //     ? "http://gatewaygenius-demo-service:80" //process.env.BACKEND_URL
     //     : "http://localhost:5400";
 
-    let url = "http://gatewaygenius-demo-service.default.svc.cluster.local";
+    let url = "http://gatewaygenius-demo-service:80";
 
     try {
       const response = await fetch(url);

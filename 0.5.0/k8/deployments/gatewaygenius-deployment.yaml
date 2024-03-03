@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: gatewaygenius-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/gatewaygenius:0.5.2 # Image name
+          image: gcr.io/deployment-example-378120/gatewaygenius:0.5.3 # Image name
           env:
           - name: SECRET_ID # Name of the environment variable
             valueFrom:
