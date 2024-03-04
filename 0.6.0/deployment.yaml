@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
         - name: next2-app-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/next2-app:0.8.0 
+          image: gcr.io/deployment-example-378120/next2-app:0.11.0 
           env:
           - name: GATEWAY_URL
-            value: "http://34.118.232.251:80" 
+            value: "http://gatewaygenius-demo-service" 
           - name: COPY_CAT_URL
-            value: "http://34.118.226.187:80"
+            value: "http://copycat-demo-servicess"
           ports:
             - containerPort: 3010 # Port your application listens on
           resources: # Resource limits and requests

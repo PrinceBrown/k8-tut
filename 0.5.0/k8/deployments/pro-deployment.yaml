@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: pro-demo-container # Name of your container
-          image: gcr.io/deployment-example-378120/pro:0.3.7 # Image name
+          image: gcr.io/deployment-example-378120/pro:0.3.8 # Image name
           env:
           - name: NODE_ENV
             value: "production"

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { NextResponse } from "next/server";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export async function GET(req) {
   return getServerStatus();

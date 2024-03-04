@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
 
+# Create .env file and insert environment variables
+# RUN echo "GATEWAY_URL=http://gatewaygenius-demo-service" >> .env
+# RUN echo "COPY_CAT_URL=http://copycat-demo-service" >> .env
+
 # Build the application
 RUN npm run build
 
@@ -21,14 +25,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-ENV GATEWAY_URL http://34.118.232.251:80
-ENV COPY_CAT_URL http://34.118.226.187:80
-
 # Copy only the built app and node_modules from the previous stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+# COPY --from=builder /app/.env ./.env
 
 # Expose the listening port
 EXPOSE 3010
