@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next2-app-demo-deployment # Name of your deployment
+  # namespace: default
+spec:
+  replicas: 1 # Number of pods you want to run
+  selector:
+    matchLabels:
+      app: next2-app-demo # Label for the pod
+  template:
+    metadata:
+      labels:
+        app: next2-app-demo # Label for the pod
+    spec:
+      containers:
+        - name: next2-app-demo-container # Name of your container
+          image: gcr.io/deployment-example-378120/next2-app:latest 
+          ports:
+            - containerPort: 3010 # Port your application listens on
+          resources: # Resource limits and requests
+            requests: # The minimum amount of resources the container needs
+              cpu: "250m" 
+              memory: "500Mi" 
+            limits: # The maximum amount of resources the container can use
+              cpu: "500m"  
+              memory: "1Gi" 
+       
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: next2-app-demo-service
+  # namespace: default
+spec:
+  selector:
+    app: next2-app-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3010

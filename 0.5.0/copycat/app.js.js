@@ -5,13 +5,15 @@ const app = express();
 
 app.get('/', async (req, res) => {
   try {
-    const response = await axios.get("http://gatewaygenius-demo-service:80");
+    let url = process.env.NODE_ENV === "production" ? "http://gatewaygenius-demo-service:80" : "http://localhost:3000";
+
+    const response = await axios.get(url);
     response.data.serverName = "Copycat"; // Append serverName to the response data
     res.json(response.data);
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: 'A request was attempted to http://gatewaygenius-demo-service:80 but failed.',
+      message: `A request was attempted to ${url} but failed.`,
       error: error.response ? error.response.data : error.message
     });
   }
