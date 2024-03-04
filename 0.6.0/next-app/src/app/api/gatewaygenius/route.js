@@ -8,7 +8,7 @@ export async function GET(req) {
   // Make a request to the server
   const getServerStatus = async () => {
 
-    let url = process.env.NODE_ENV === "production" ? "http://gatewaygenius-demo-service:80" : "http://localhost:3000";
+    let url = process.env.NODE_ENV === "production" ? process.env.GATEWAY_URL  : "http://localhost:3000"; // "http://34.118.232.251:80"
 
     try {
       const response = await axios.get(url);

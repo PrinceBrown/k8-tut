@@ -21,6 +21,9 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+ENV GATEWAY_URL http://34.118.232.251:80
+ENV COPY_CAT_URL http://34.118.226.187:80
+
 # Copy only the built app and node_modules from the previous stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

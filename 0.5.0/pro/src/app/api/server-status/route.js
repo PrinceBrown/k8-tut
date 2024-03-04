@@ -8,10 +8,10 @@ export async function GET(req) {
   // Make a request to the server
   const getServerStatus = async () => {
 
-    let url = process.env.NODE_ENV === "production" ? "http://gatewaygenius-demo-service:80" : "http://localhost:3000";
+    // let url = process.env.NODE_ENV === "production" ? "http://gatewaygenius-demo-service:80" : "http://localhost:3000";
 
     try {
-      const response = await axios.get(url);
+      const response = await axios.get('https://rocketscore.com/');
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
