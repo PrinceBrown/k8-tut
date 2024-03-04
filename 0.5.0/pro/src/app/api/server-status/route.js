@@ -1,21 +1,21 @@
+import axios from 'axios';
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
+  return getServerStatus();
+}
+
   // Make a request to the server
   const getServerStatus = async () => {
-    // let url =
-    //   process.env.NODE_ENV == "production" 
-    //     ? "http://gatewaygenius-demo-service:80" //process.env.BACKEND_URL
-    //     : "http://localhost:5400";
 
     let url = "http://gatewaygenius-demo-service:80";
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
+      const response = await axios.get(url);
+      if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
+      const data = response.data;
 
       return NextResponse.json({
         serverName: data.serverName,
@@ -31,6 +31,3 @@ export async function GET(req) {
       });
     }
   };
-
-  return getServerStatus();
-}
